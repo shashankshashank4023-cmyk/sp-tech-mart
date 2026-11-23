@@ -4,11 +4,11 @@ A React/Vite storefront and Spring Boot 3 API for an Indian computer hardware an
 
 ## Frontend preview
 
-The Vite development preview runs at http://localhost:5173 while its dev server is running. Start it from the repository root with `pnpm install` and `pnpm dev`.
+The Vite development preview runs at while its dev server is running. Start it from the repository root with `pnpm install` and `pnpm dev`.
 
 ## Backend setup
 
-Requirements: Java 17+, Maven 3.9+, and MySQL 8. The API listens at http://localhost:8080/api. Set the environment variables listed in `backend/.env.example`, create a MySQL user/database if needed, then run:
+Requirements: Java 17+, Maven 3.9+, and MySQL 8. The API listens at https://sp-tech-mart.onrender.com Set the environment variables listed in `backend/.env.example`, create a MySQL user/database if needed, then run:
 
 ```powershell
 cd backend
@@ -31,9 +31,3 @@ The backend creates customers and carts on registration. Product prices and tota
 
 Frontend API base URL defaults to `http://localhost:8080/api`. Override with `VITE_API_URL` (see `.env.example`). Sample catalog data keeps the storefront preview usable while the API is offline.
 
-## Deploy to Render
-
-The repository includes `render.yaml` and `backend/Dockerfile` for a Render Blueprint deployment. Push this repository to GitHub, then in Render choose **New > Blueprint** and connect the `sp-tech-mart` repository. The Blueprint creates a static storefront, Spring Boot API, and MySQL 8 private service with a persistent disk. The MySQL service uses Render's MySQL template and its standard plan is paid.
-
-At Blueprint creation, provide Razorpay test credentials when prompted. The API service uses the names `sp-computers-api` and `sp-computers-store`; if Render assigns different `onrender.com` URLs due to a naming conflict, update `VITE_API_URL` on the static site and `CORS_ALLOWED_ORIGINS` on the API to match the actual service URLs, then redeploy. Never add real credentials to this repository.
-https://sp-tech-mart.onrender.com
