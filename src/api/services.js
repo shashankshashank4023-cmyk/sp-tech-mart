@@ -1,0 +1,8 @@
+import apiClient from './axiosConfig'
+const data = async (request) => (await request).data
+export const authService = { register: (payload) => data(apiClient.post('/auth/register', payload)), login: (payload) => data(apiClient.post('/auth/login', payload)) }
+export const productService = { list: (params = {}) => data(apiClient.get('/products', { params })), getById: (id) => data(apiClient.get(`/products/${id}`)) }
+export const cartService = { get: () => data(apiClient.get('/cart')), add: (productId, quantity = 1) => data(apiClient.post('/cart/add', { productId, quantity })), remove: (itemId) => data(apiClient.delete(`/cart/remove/${itemId}`)) }
+export const orderService = { checkout: (shippingAddress) => data(apiClient.post('/orders/checkout', { shippingAddress })), verifyPayment: (response) => data(apiClient.post('/payments/verify', { razorpay_order_id: response.razorpay_order_id, razorpay_payment_id: response.razorpay_payment_id, razorpay_signature: response.razorpay_signature })), myOrders: () => data(apiClient.get('/orders/my-orders')) }
+export const adminService = { listProducts: () => data(apiClient.get(`/admin/products`)), createProduct: (p) => data(apiClient.post('/admin/products', p)), updateProduct: (id, p) => data(apiClient.put(`/admin/products/${id}`, p)), deleteProduct: (id) => data(apiClient.delete(`/admin/products/${id}`)), updateStock: (id, quantity) => data(apiClient.put(`/admin/products/${id}/stock`, null, { params: { quantity } })), listOrders: () => data(apiClient.get('/admin/orders')), updateOrderStatus: (id, status) => data(apiClient.put(`/admin/orders/${id}/status`, null, { params: { status } })), revenue: () => data(apiClient.get('/admin/analytics/revenue')) }
+

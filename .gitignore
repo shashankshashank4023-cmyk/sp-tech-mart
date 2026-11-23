@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+backend/target/
+.idea/
+*.iml
+backend/.buildtools/
+backend/demo-run.log
+backend/demo-run.err
+frontend-run.log
+frontend-run.err

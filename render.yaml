@@ -1,0 +1,85 @@
+services:
+  - type: static
+    name: sp-computers-store
+    runtime: static
+    plan: free
+    buildCommand: corepack enable && corepack pnpm install --frozen-lockfile && corepack pnpm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://sp-computers-api.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+  - type: web
+    name: sp-computers-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://sp-computers-store.onrender.com
+      - key: DB_HOST
+        fromService:
+          type: pserv
+          name: sp-computers-db
+          property: host
+      - key: DB_PORT
+        fromService:
+          type: pserv
+          name: sp-computers-db
+          property: port
+      - key: DB_NAME
+        value: sp_computers
+      - key: DB_USERNAME
+        fromService:
+          type: pserv
+          name: sp-computers-db
+          envVarKey: MYSQL_USER
+      - key: DB_PASSWORD
+        fromService:
+          type: pserv
+          name: sp-computers-db
+          envVarKey: MYSQL_PASSWORD
+      - key: DDL_AUTO
+        value: update
+      - key: JWT_SECRET
+        generateValue: true
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: CATALOG_DEMO_SEED
+        value: "false"
+
+  - type: pserv
+    name: sp-computers-db
+    runtime: docker
+    plan: standard
+    repo: https://github.com/render-examples/mysql.git
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeployTrigger: off
+    disk:
+      name: sp-computers-mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      - fromGroup: sp-computers-mysql
+
+envVarGroups:
+  - name: sp-computers-mysql
+    envVars:
+      - key: MYSQL_DATABASE
+        value: sp_computers
+      - key: MYSQL_USER
+        value: spc_app
+      - key: MYSQL_PASSWORD
+        generateValue: true
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
