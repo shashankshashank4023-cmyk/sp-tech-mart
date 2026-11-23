@@ -8,7 +8,7 @@ The Vite development preview runs at while its dev server is running. Start it f
 
 ## Backend setup
 
-Requirements: Java 17+, Maven 3.9+, and MySQL 8. The API listens at https://sp-tech-mart.onrender.com Set the environment variables listed in `backend/.env.example`, create a MySQL user/database if needed, then run:
+Requirements: Java 17+, Maven 3.9+, and MySQL 8. The API listens at Set the environment variables listed in `backend/.env.example`, create a MySQL user/database if needed, then run:
 
 ```powershell
 cd backend
