@@ -36,3 +36,4 @@ Frontend API base URL defaults to `http://localhost:8080/api`. Override with `VI
 The repository includes `render.yaml` and `backend/Dockerfile` for a Render Blueprint deployment. Push this repository to GitHub, then in Render choose **New > Blueprint** and connect the `sp-tech-mart` repository. The Blueprint creates a static storefront, Spring Boot API, and MySQL 8 private service with a persistent disk. The MySQL service uses Render's MySQL template and its standard plan is paid.
 
 At Blueprint creation, provide Razorpay test credentials when prompted. The API service uses the names `sp-computers-api` and `sp-computers-store`; if Render assigns different `onrender.com` URLs due to a naming conflict, update `VITE_API_URL` on the static site and `CORS_ALLOWED_ORIGINS` on the API to match the actual service URLs, then redeploy. Never add real credentials to this repository.
+https://sp-tech-mart.onrender.com
