@@ -2,13 +2,22 @@
 
 A React/Vite storefront and Spring Boot 3 API for an Indian computer hardware and custom PC store.
 
-## Frontend preview
+## Explore the live store
 
-The Vite development preview runs at while its dev server is running. Start it from the repository root with `pnpm install` and `pnpm dev`.
+Visit [SP Tech Mart](https://sp-tech-mart-store.onrender.com/) to browse the live storefront.
+
+## Run the frontend locally
+
+From the repository root, install dependencies and start the Vite development server:
+
+```bash
+pnpm install
+pnpm dev
+```
 
 ## Backend setup
 
-Requirements: Java 17+, Maven 3.9+, and MySQL 8. The API listens at Set the environment variables listed in `backend/.env.example`, create a MySQL user/database if needed, then run:
+Requirements: Java 17+, Maven 3.9+, and MySQL 8. Set the environment variables listed in `backend/.env.example`, create a MySQL user/database if needed, then run:
 
 ```powershell
 cd backend
@@ -30,4 +39,3 @@ The backend creates customers and carts on registration. Product prices and tota
 - Admin product CRUD and stock at `/api/admin/products`; order management at `/api/admin/orders`; revenue at `/api/admin/analytics/revenue`
 
 Frontend API base URL defaults to `http://localhost:8080/api`. Override with `VITE_API_URL` (see `.env.example`). Sample catalog data keeps the storefront preview usable while the API is offline.
-
